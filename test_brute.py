@@ -114,11 +114,12 @@ def describe_random_guess():
     
     def test_random_guess_length():
         """Test that randomGuess returns a string of length 1-8"""
+        
         # Create a Brute instance
         secret = "test"
         brute = Brute(secret)
         
-        # Generate multiple random guesses to test randomness
+        # couple random guesses to test randomness
         for i in range(20):
             random_string = brute.randomGuess()
             
