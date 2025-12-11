@@ -106,6 +106,57 @@ def describe_brute_once():
         # False (case sensitive)
         result = brute.bruteOnce("MIKE")
         assert result == False
+    
+
+# ADD edge cases so that jeff can be happy
+
+    def test_brute_once_with_special_characters():
+        # Special characters
+        secret = "p@&%$#@(:)"
+        brute = Brute(secret)
+        
+        # Should match correctly
+        result_correct = brute.bruteOnce("p@&%$#@(:)")
+        assert result_correct == True
+        
+        # Should fail with similar but different special chars
+        result_wrong = brute.bruteOnce("%&$^#&^#&@^@")
+        assert result_wrong == False
+        
+        # Test with various special characters
+        secret2 = "test#$%^&*()"
+        brute2 = Brute(secret2)
+        assert brute2.bruteOnce("test#$%^&*()") == True
+        # Test that extra spaces cause failure (spaces are significant)
+        assert brute2.bruteOnce("test#$%^&*() ") == False  # Extra space should fail
+        assert brute2.bruteOnce(" test#$%^&*()") == False  # Leading space should fail
+        # Test with only spaces (should fail)
+        secret_spaces = "       "
+        brute_spaces = Brute(secret_spaces)
+        assert brute_spaces.bruteOnce("       ") == True  # All spaces match
+        assert brute_spaces.bruteOnce("      ") == False  # Different number of spaces
+    
+
+    
+    def test_brute_once_single_character_boundary():
+        # mim length edge case
+        # Single character
+        secret = "a"
+        brute = Brute(secret)
+        
+        # correct
+        result_correct = brute.bruteOnce("a")
+        assert result_correct == True
+        
+        # Should fail with different single character
+        result_wrong = brute.bruteOnce("b")
+        assert result_wrong == False
+        
+        # Test with single digit
+        secret_digit = "5"
+        brute_digit = Brute(secret_digit)
+        assert brute_digit.bruteOnce("5") == True
+        assert brute_digit.bruteOnce("6") == False
 
 
 # I need some tests for random guess (big coverage guy)
