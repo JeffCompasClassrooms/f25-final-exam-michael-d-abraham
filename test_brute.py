@@ -108,6 +108,55 @@ def describe_brute_once():
         assert result == False
 
 
+# I need some tests for random guess (big coverage guy)
+def describe_random_guess():
+    """Test suite for the randomGuess method"""
+    
+    def test_random_guess_length():
+        """Test that randomGuess returns a string of length 1-8"""
+        # Create a Brute instance
+        secret = "test"
+        brute = Brute(secret)
+        
+        # Generate multiple random guesses to test randomness
+        for i in range(20):
+            random_string = brute.randomGuess()
+            
+            # Check length is between 1 and 8
+            assert len(random_string) >= 1
+            assert len(random_string) <= 8
+    
+    def test_random_guess_is_alphanumeric():
+        """Test that randomGuess returns only alphanumeric characters"""
+        # Create a Brute instance
+        secret = "test"
+        brute = Brute(secret)
+        
+        # Generate random guesses
+        for i in range(20):
+            random_string = brute.randomGuess()
+            
+            # Check all characters are alphanumeric (letters or digits)
+            assert random_string.isalnum()
+    
+    def test_random_guess_is_random():
+        """Test that randomGuess produces different results"""
+        # Create a Brute instance
+        secret = "test"
+        brute = Brute(secret)
+        
+        # Generate multiple random guesses
+        guesses = []
+        for i in range(50):
+            guesses.append(brute.randomGuess())
+        
+        # Check that we got some variety (not all the same)
+        # This is probabilistic but very likely with 50 attempts
+        unique_guesses = set(guesses)
+        assert len(unique_guesses) > 1 
+
+
+        
 
 def describe_brute_many():
     # DOUBLESSSSS
